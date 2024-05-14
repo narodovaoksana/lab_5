@@ -1,48 +1,82 @@
 package task2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LargeClass {
-    private String name;
-    private int age;
-    private String gender;
-    private List<String> friends;
-    private List<String> enemies;
-    private List<String> tasks;
+    public String name;
+    public int age;
+    public String gender;
+    private FriendsList friendsList;
+    private EnemiesList enemiesList;
+    private TasksList tasksList;
+    private InfoDisplay infoDisplay;
+
     public LargeClass(String name, int age, String gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.friends = new ArrayList<>();
-        this.enemies = new ArrayList<>();
-        this.tasks = new ArrayList<>();
+        this.friendsList = new FriendsList();
+        this.enemiesList = new EnemiesList();
+        this.tasksList = new TasksList();
+        this.infoDisplay = new InfoDisplay(this);
     }
-    public void addFriend(String friend) {
-        this.friends.add(friend);
-    }
-    public void removeFriend(String friend) {
-        this.friends.remove(friend);
-    }
-    public void addEnemy(String enemy) {
-        this.enemies.add(enemy);
-    }
-    public void removeEnemy(String enemy) {
-        this.enemies.remove(enemy);
-    }
-    public void addTask(String task) {
-        this.tasks.add(task);
-    }
-    public void removeTask(String task) {
-        this.tasks.remove(task);
-    }
-    public void displayInfo() {
-        System.out.println("Name: " + this.name);
-        System.out.println("Age: " + this.age);
-        System.out.println("Gender: " + this.gender);
-        System.out.println("Friends: " + this.friends);
-        System.out.println("Enemies: " + this.enemies);
-        System.out.println("Tasks: " + this.tasks);
 
+    public void addFriend(String name) {
+        friendsList.add(name);
+    }
+
+    public void removeFriend(String name) {
+        friendsList.remove(name);
+    }
+
+    public List<String> getFriends() {
+        return friendsList.getFriends();
+    }
+
+    public void addEnemy(String name) {
+        enemiesList.add(name);
+    }
+
+    public void removeEnemy(String name) {
+        enemiesList.remove(name);
+    }
+
+    public List<String> getEnemies() {
+        return enemiesList.getEnemies();
+    }
+
+    public void addTask(String description) {
+        tasksList.add(description);
+    }
+
+    public void removeTask(String description) {
+        tasksList.remove(description);
+    }
+
+    public List<String> getTasks() {
+        return tasksList.getTasks();
+    }
+
+    public InfoDisplay getInfoDisplay() {
+        return infoDisplay;
+    }
+
+    public void displayInfo() {
+        String info = "Name: " + name + "\n";
+        info += "Age: " + age + "\n";
+        info += "Gender: " + gender + "\n";
+        info += "Friends:\n";
+        for (String friend : friendsList.getFriends()) {
+            info += friend + "\n";
+        }
+        info += "Enemies:\n";
+        for (String enemy : enemiesList.getEnemies()) {
+            info += enemy + "\n";
+        }
+        info += "Tasks:\n";
+        for (String task : tasksList.getTasks()) {
+            info += task + "\n";
+        }
+        System.out.println(info);
     }
 }
